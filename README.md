@@ -1,2 +1,32 @@
-# october-twig
-This package adds syntax definitions for the OctoberCMS Twig engine. http://octobercms.com
+## October Twig Highlighter
+
+This package adds syntax definitions for the [OctoberCMS](http://octobercms.com/docs/markup) Twig engine.
+
+*Uses .sublime-syntax files that works with Sublime Text 3 and newer.*
+
+### How to install with [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
+
+Search for October Twig and install it, it's just that simple.
+
+*Restart Sublime Text after you install this package.*
+
+### Sublime Text Manual Install
+
+- Download or clone this repository into [install-dir]/Packages/october-twig
+- Restart Sublime Text.
+
+#### How to Contribute
+
+- To test a local version of the highlighter first uninstall the highlighter from package control.
+- Follow the manual installation process by cloning the repo into your packages directory.
+- Restart Sublime Text.
+- Open up the '[install-dir]/Packages/october-twig' folder into a new Sublime Text project.
+- Open up the `october-twig.sublime-syntax` file and make changes.
+- Provided is a `test.htm` file that holds most of the common uses for testing the regex, use this to verify your changes before and after you make them to ensure the changes you make do not break anything.
+- Send a pull request with a single change per request.
+
+#### Thanks
+
+- Props to @Medialink for providing [the boilerplate](https://github.com/Medalink/laravel-blade/) for this package.
+
+- Thanks @Anomareh for the [PHP-Twig TextMate bundle](https://github.com/Anomareh/PHP-Twig.tmbundle) used to source the Twig functions.

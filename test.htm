@@ -1,0 +1,204 @@
+{# Echo Data #}
+Hello, {{ name }}.
+The current UNIX timestamp is {{ 'now'|date('U') }}.
+
+{# Echoing Data After Checking For Existence #}
+{{ isset($name) ? $name : 'Default' }}
+{{ name or 'Default' }}
+
+{# Displaying Raw Text With Curly Braces #}
+{% verbatim %}{{ This will not be processed by Twig }}{% endverbatim %}
+
+{# Do not escape data #}
+Hello, {{ name|raw }}.
+
+{# Escape Data #}
+Hello, {{ name|e }}.
+
+<?php echo $name; ?>
+<?= $name; ?>
+
+<?php
+    foreach (range(1, 10) as $number) {
+        echo $number;
+    }
+?>
+
+{# Define Twig Layout #}
+<html>
+    <head>
+        <title>
+            {{ this.page.title ?: 'App Name' }}
+        </title>
+    </head>
+    <body>
+        {% placeholder sidebar default %}
+            This is the master sidebar.
+        {% endplaceholder %}
+
+        <div class="container">
+            {% page %}
+        </div>
+    </body>
+</html>
+
+{# Placeholder #}
+{% placeholder section default %}
+    Default Content
+{% endplaceholder %}
+
+{# Put #}
+{% put section %}
+    <p>This is my body content.</p>
+{% endput %}
+
+{# If Statement #}
+{% if records|length == 1 %}
+    I have one record!
+{% elseif records|length > 1 %}
+    I have multiple records!
+{% else %}
+    I don't have any records!
+{% endif %}
+
+{% if not user %}
+    You are not signed in.
+{% endif %}
+
+{# Loops #}
+
+{% for i in 0..10 %}
+    The current value is {{ i }}
+{% endfor %}
+
+{% for user in users %}
+    <p>This is user {{ user.id }}</p>
+{% endfor %}
+
+{% for user in users %}
+    <li>{{ user.name }}</li>
+{% else %}
+    <p>No users</p>
+{% endfor %}
+
+{# Partial #}
+{% partial 'name' %}
+{% partial 'name' some='data' %}
+
+{# Content #}
+{% content 'name' %}
+{% content 'name' some='data' %}
+
+{# Component #}
+{% component 'name' %}
+{% component 'name' some='data' %}
+
+{# Overwriting Sections #}
+@extends('list.item.container')
+
+@section('list.item.content')
+    <p>This is an item of type {{ item->type }}</p>
+@overwrite
+
+{# Displaying Language Lines #}
+{{ 'language.line'|trans }}
+{{ 'language.line'|transchoice(1) }}
+
+{# This comment will not be in the rendered HTML #}
+
+{#
+This comment will not be in the rendered HTML
+This comment will not be in the rendered HTML
+This comment will not be in the rendered HTML
+#}
+
+{# Advanced loops #}
+{% for key, val in stuff %}
+    {{ loop.index0 }}      {# int, zero based #}
+    {{ loop.index }}       {# int, starts at 1 #}
+    {{ loop.revindex0 }}   {# int #}
+    {{ loop.revindex }}    {# int #}
+    {{ loop.first }}       {# bool #}
+    {{ loop.last }}        {# bool #}
+    {{ loop.length }}      {# int #}
+    {{ loop.parent }}      {# parent context #}
+
+    {% for name, age in other %}
+
+        {{ loop.parent.index }}
+
+        {% for foo, bar in friends %}
+
+            {{ loop.parent.index }}
+            {{ loop.parent.parent.index }}
+
+        {% endfor %}
+
+    {% endfor %}
+
+{% endfor %}
+
+{{ newvar }}
+{% set newvar = 'value' %}
+{% set myObj = {my: 'object'} %}
+{% set myArr = ['my', 'array'] %}
+
+
+{{ dump(myArr) }}
+
+{{ '# Some markdown code
+** with some bold text too **'|md }}
+
+{% macro input(name, value, type, size) %}
+    <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value|e }}" size="{{ size|default(20) }}" />
+{% endmacro %}
+
+<div class="container">
+    <h1>Title</h1>
+
+    {% import _self as forms %}
+
+    <p>{{ forms.input('username') }}</p>
+
+    <p>Paragraph</p>
+</div>
+
+<script>
+    {% spaceless %}
+
+    var exampleJavascript = {
+        this: 'that',
+        foo: 'bar',
+        doit: function(){
+            console.log('yesss');
+        }
+    };
+
+    {% endspaceless %}
+</script>
+
+<style type="text/css">
+    {% spaceless %}
+
+    a.bg-primary:hover,
+    a.bg-primary:focus {
+      background-color: #286090;
+    }
+
+    .bg-success {
+      background-color: #dff0d8;
+    }
+
+    a.bg-success:hover,
+    a.bg-success:focus {
+      background-color: #c1e2b3;
+    }
+
+    {% endspaceless %}
+</style>
+
+<head>
+    {% scripts %}
+    {% styles %}
+    {% framework extras %}
+</head>

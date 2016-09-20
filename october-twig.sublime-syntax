@@ -1,0 +1,447 @@
+%YAML 1.2
+---
+name: October Twig
+file_extensions: [october.htm, htm]
+scope: text.october
+
+#
+# October's Twig
+#
+variables:
+  tags: page|framework|partial|content|component|scripts|styles
+  endTags: placeholder|flash|put
+  filters: app|page|media|theme|slug|plural|singular|finish|snake|camel|studly|trans|transchoice|md|time_since|time_tense|_|__
+  filtersArgs: page|transchoice|_|__
+  functions: input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset
+  functionsArgs: input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset
+
+contexts:
+
+  #
+  # Main parser
+  #
+  main:
+
+    - match: ''
+      push:
+        - include: scope:text.html.basic
+        - meta_scope: text.html.october
+          pop: true
+      with_prototype:
+
+        #
+        # Twig Print Tag
+        #
+        - match: '{{-?'
+          captures:
+            0: punctuation.section.tag.twig
+          push:
+            - meta_scope: meta.tag.template.value.twig
+            - match: '-?}}'
+              captures:
+                0: punctuation.section.tag.twig
+              pop: true
+            - include: twig-constants
+            - include: twig-operators
+            - include: twig-functions-warg
+            - include: twig-functions
+            - include: twig-macros
+            - include: twig-objects
+            - include: twig-properties
+            - include: twig-filters-warg
+            - include: twig-filters
+            - include: twig-filters-warg-ud
+            - include: twig-filters-ud
+            - include: twig-strings
+            - include: twig-arrays
+            - include: twig-hashes
+
+        #
+        # Twig Statement Tag
+        #
+        - match: '{%-?'
+          captures:
+            0: punctuation.section.tag.twig
+          push:
+            - meta_scope: meta.tag.template.block.twig
+            - match: '-?%}'
+              captures:
+                0: punctuation.section.tag.twig
+              pop: true
+            - include: twig-constants
+            - include: twig-keywords
+            - include: twig-operators
+            - include: twig-functions-warg
+            - include: twig-functions
+            - include: twig-macros
+            - include: twig-filters-warg
+            - include: twig-filters
+            - include: twig-filters-warg-ud
+            - include: twig-filters-ud
+            - include: twig-objects
+            - include: twig-properties
+            - include: twig-strings
+            - include: twig-arrays
+            - include: twig-hashes
+
+        #
+        # Twig Comment Tag
+        #
+        - match: '{#-?'
+          captures:
+            0: punctuation.definition.comment.begin.twig
+          push:
+            - meta_scope: comment.block.twig
+            - match: '-?#}'
+              captures:
+                0: punctuation.definition.comment.end.twig
+              pop: true
+
+        #
+        # PHP
+        #
+        - match: '<\?(?i:php|=)?(?![^?]*\?>)'
+          scope: punctuation.section.embedded.begin.php
+          push:
+            - meta_content_scope: source.php
+            - meta_scope: meta.embedded.block.october.php
+            - include: 'scope:source.php'
+          with_prototype:
+            - match: (?=\?>)(\?>)
+              captures:
+                0: punctuation.section.embedded.end.php
+              pop: true
+
+        - match: '<\?(?i:php|=)?'
+          scope: punctuation.section.embedded.begin.php
+          push:
+            - meta_content_scope: source.php.october
+            - meta_scope: meta.embedded.line.october.php
+            - include: 'scope:source.php'
+          with_prototype:
+          - match: (?=\?>)(\?>)
+            captures:
+              0: punctuation.section.embedded.end.php
+            pop: true
+
+  #
+  # Twig includes
+  #
+
+  twig-arrays:
+    - match: '(?<=[\s\(\{\[:,])\['
+      captures:
+        0: punctuation.section.array.begin.twig
+      push:
+        - meta_scope: meta.array.twig
+        - match: '\]'
+          captures:
+            0: punctuation.section.array.end.twig
+          pop: true
+        - include: twig-arrays
+        - include: twig-hashes
+        - include: twig-constants
+        - include: twig-strings
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - match: ","
+          scope: punctuation.separator.object.twig
+
+  twig-constants:
+    - match: '(?i)(?<=[\s\[\(\{:,])(?:true|false|null|none)(?=[\s\)\]\}\,])'
+      scope: constant.language.twig
+    - match: '(?<=[\s\[\(\{:,]|\.\.|\*\*)[0-9]+(?:\.[0-9]+)?(?=[\s\)\]\}\,]|\.\.|\*\*)'
+      scope: constant.numeric.twig
+
+  twig-filters:
+    - match: '(?<=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\''\"]\|)|\{%\sfilter\s)(abs|capitalize|e(?:scape)?|first|join|(?:json|url)_encode|keys|last|length|lower|nl2br|number_format|raw|reverse|round|sort|striptags|title|trim|upper|{{filters}})(?=[\s\|\]\}\):,]|\.\.|\*\*)'
+      captures:
+        1: support.function.twig
+
+  twig-filters-ud:
+    - match: '(?<=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\''\"]\|)|\{%\sfilter\s)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)'
+      captures:
+        1: meta.function-call.other.twig
+
+  twig-filters-warg:
+    - match: '(?<=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\''\"]\|)|\{%\sfilter\s)(batch|convert_encoding|date|date_modify|default|e(?:scape)?|format|join|merge|number_format|replace|round|slice|split|trim|{{filtersArgs}})(\()'
+      captures:
+        1: support.function.twig
+        2: punctuation.definition.parameters.begin.twig
+      push:
+        - meta_content_scope: meta.function.arguments.twig
+        - match: \)
+          captures:
+            0: punctuation.definition.parameters.end.twig
+          pop: true
+        - include: twig-constants
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - include: twig-strings
+        - include: twig-arrays
+        - include: twig-hashes
+
+  twig-filters-warg-ud:
+    - match: '(?<=(?:[a-zA-Z0-9_\x{7f}-\x{ff}\]\)\''\"]\|)|\{%\sfilter\s)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)(\()'
+      captures:
+        1: meta.function-call.other.twig
+        2: punctuation.definition.parameters.begin.twig
+      push:
+        - meta_content_scope: meta.function.arguments.twig
+        - match: \)
+          captures:
+            0: punctuation.definition.parameters.end.twig
+          pop: true
+        - include: twig-constants
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - include: twig-strings
+        - include: twig-arrays
+        - include: twig-hashes
+
+  twig-functions:
+    - match: (?<=is\s)(defined|empty|even|iterable|odd|{{functions}})
+      captures:
+        1: support.function.twig
+
+  twig-functions-warg:
+    - match: '(?<=[\s\(\[\{:,])(attribute|block|constant|cycle|date|divisible by|dump|include|max|min|parent|random|range|same as|source|template_from_string|{{functionsArgs}})(\()'
+      captures:
+        1: support.function.twig
+        2: punctuation.definition.parameters.begin.twig
+      push:
+        - meta_content_scope: meta.function.arguments.twig
+        - match: \)
+          captures:
+            0: punctuation.definition.parameters.end.twig
+          pop: true
+        - include: twig-constants
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - include: twig-strings
+        - include: twig-arrays
+
+  twig-hashes:
+    - match: '(?<=[\s\(\{\[:,])\{'
+      captures:
+        0: punctuation.section.hash.begin.twig
+      push:
+        - meta_scope: meta.hash.twig
+        - match: '\}'
+          captures:
+            0: punctuation.section.hash.end.twig
+          pop: true
+        - include: twig-hashes
+        - include: twig-arrays
+        - include: twig-constants
+        - include: twig-strings
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - match: ":"
+          scope: punctuation.separator.key-value.twig
+        - match: ","
+          scope: punctuation.separator.object.twig
+
+  twig-keywords:
+    - match: (?<=\s)((?:end)?(?:autoescape|block|embed|filter|for|if|macro|raw|sandbox|set|spaceless|trans|verbatim|{{endTags}})|as|do|else|elseif|extends|flush|from|ignore missing|import|include|only|use|with|{{tags}})(?=\s)
+      scope: keyword.control.twig
+
+  twig-macros:
+    - match: |-
+        (?x)
+          (?<=[\s\(\[\{:,])
+          ([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)
+          (?:
+              (\.)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)
+          )?
+          (\()
+      captures:
+        1: meta.function-call.twig
+        2: punctuation.separator.property.twig
+        3: variable.other.property.twig
+        4: punctuation.definition.parameters.begin.twig
+      push:
+        - meta_content_scope: meta.function.arguments.twig
+        - match: \)
+          captures:
+            0: punctuation.definition.parameters.end.twig
+          pop: true
+        - include: twig-constants
+        - include: twig-operators
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - include: twig-strings
+        - include: twig-arrays
+        - include: twig-hashes
+
+  twig-objects:
+    - match: '(?<=[\s\{\[\(:,])([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)(?=[\s\}\[\]\(\)\.\|,:])'
+      captures:
+        1: variable.other.twig
+
+  twig-operators:
+    - match: (?<=\s)(\+|-|//?|%|\*\*?)(?=\s)
+      captures:
+        1: keyword.operator.arithmetic.twig
+    - match: (?<=\s)(=|~)(?=\s)
+      captures:
+        1: keyword.operator.assignment.twig
+    - match: (?<=\s)(b-(?:and|or|xor))(?=\s)
+      captures:
+        1: keyword.operator.bitwise.twig
+    - match: '(?<=\s)((?:!|=)=|<=?|>=?|(?:not )?in|is(?: not)?|(?:ends|starts) with|matches)(?=\s)'
+      captures:
+        1: keyword.operator.comparison.twig
+    - match: (?<=\s)(\?|:|and|not|or)(?=\s)
+      captures:
+        1: keyword.operator.logical.twig
+    - match: '(?<=[a-zA-Z0-9_\x{7f}-\x{ff}\]\)''"])\.\.(?=[a-zA-Z0-9_\x{7f}-\x{ff}''"])'
+      captures:
+        0: keyword.operator.other.twig
+    - match: '(?<=[a-zA-Z0-9_\x{7f}-\x{ff}\]\}\)''"])\|(?=[a-zA-Z_\x{7f}-\x{ff}])'
+      captures:
+        0: keyword.operator.other.twig
+
+  twig-properties:
+    - match: |-
+        (?x)
+            (?<=[a-zA-Z0-9_\x{7f}-\x{ff}])
+            (\.)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)
+            (?=[\.\s\|\[\)\]\}:,])
+      captures:
+        1: punctuation.separator.property.twig
+        2: variable.other.property.twig
+    - match: |-
+        (?x)
+            (?<=[a-zA-Z0-9_\x{7f}-\x{ff}])
+            (\.)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)
+            (\()
+      captures:
+        1: punctuation.separator.property.twig
+        2: variable.other.property.twig
+        3: punctuation.definition.parameters.begin.twig
+      push:
+        - meta_content_scope: meta.function.arguments.twig
+        - match: \)
+          captures:
+            0: punctuation.definition.parameters.end.twig
+          pop: true
+        - include: twig-constants
+        - include: twig-functions-warg
+        - include: twig-functions
+        - include: twig-macros
+        - include: twig-objects
+        - include: twig-properties
+        - include: twig-filters-warg
+        - include: twig-filters
+        - include: twig-filters-warg-ud
+        - include: twig-filters-ud
+        - include: twig-strings
+        - include: twig-arrays
+    - match: |-
+        (?x)
+            (?<=[a-zA-Z0-9_\x{7f}-\x{ff}\]])
+            (?:
+                (\[)('[a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*')(\])
+                |(\[)("[a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*")(\])
+                |(\[)([a-zA-Z_\x{7f}-\x{ff}][a-zA-Z0-9_\x{7f}-\x{ff}]*)(\])
+            )
+      captures:
+        1: punctuation.section.array.begin.twig
+        2: variable.other.property.twig
+        3: punctuation.section.array.end.twig
+        4: punctuation.section.array.begin.twig
+        5: variable.other.property.twig
+        6: punctuation.section.array.end.twig
+        7: punctuation.section.array.begin.twig
+        8: variable.other.property.twig
+        9: punctuation.section.array.end.twig
+
+  twig-strings:
+    - match: (?:(?<!\\)|(?<=\\\\))'
+      captures:
+        0: punctuation.definition.string.begin.twig
+      push:
+        - meta_scope: string.quoted.single.twig
+        - match: (?:(?<!\\)|(?<=\\\\))'
+          captures:
+            0: punctuation.definition.string.end.twig
+          pop: true
+    - match: (?:(?<!\\)|(?<=\\\\))"
+      captures:
+        0: punctuation.definition.string.begin.twig
+      push:
+        - meta_scope: string.quoted.double.twig
+        - match: (?:(?<!\\)|(?<=\\\\))"
+          captures:
+            0: punctuation.definition.string.end.twig
+          pop: true
+
+#
+# INI (Not used)
+#
+# - match: ^\s*(;|#).*$\n?
+#   scope: comment.line.semicolon.ini
+#   captures:
+#     1: punctuation.definition.comment.ini
+# - match: '^\s*(\[)(.*?)(\])'
+#   scope: meta.tag.section.ini
+#   captures:
+#     1: punctuation.definition.section.ini
+#     2: entity.section.ini
+#     3: punctuation.definition.section.ini
+# - match: '^(\s*(["'']?)(.+?)(\2)\s*(=))?\s*((["'']?)(.*?)(\7))\s*(;.*)?$\n?'
+#   scope: meta.declaration.ini
+#   captures:
+#     1: meta.property.ini
+#     2: punctuation.definition.quote.ini
+#     3: keyword.name.ini
+#     4: punctuation.definition.quote.ini
+#     5: punctuation.definition.equals.ini
+#     6: meta.value.ini
+#     7: punctuation.definition.quote.ini
+#     8: string.name.value.ini
+#     9: punctuation.definition.quote.ini
+#     10: comment.declarationline.semicolon.ini
