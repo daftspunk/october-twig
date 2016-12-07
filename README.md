@@ -27,6 +27,4 @@ Search for October Twig and install it, it's just that simple.
 
 #### Thanks
 
-- Props to @Medialink for providing [the boilerplate](https://github.com/Medalink/laravel-blade/) for this package.
-
 - Thanks @Anomareh for the [PHP-Twig TextMate bundle](https://github.com/Anomareh/PHP-Twig.tmbundle) used to source the Twig functions.

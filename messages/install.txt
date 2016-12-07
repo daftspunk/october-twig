@@ -1,5 +1,0 @@
-October Twig Highlighter
-
-This package adds syntax definitions for the OctoberCMS Twig engine.
-
-Works with Sublime Text 3.
