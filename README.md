@@ -27,13 +27,25 @@ function onStart() { /* ...*/ }
 {% endfor %}
 ```
 
-
 #### How to Contribute
 
 - Intall this extension
 - Open the `%USERPROFILE%\.vscode\extensions` directory
 - Modify the extension files
 - Reload the window to test
+
+#### VS Code Configuration
+
+Add these lines to your VS Code settings to associate HTM files as October Twig syntax. These settings can also be used to get Emmet working.
+
+```json
+"files.associations": {
+    "*.htm": "october-htm"
+},
+"emmet.includeLanguages": {
+    "october-htm": "html"
+}
+```
 
 ## Sublime Text
 
@@ -77,3 +89,7 @@ Restart Sublime Text after you install this package.
 
 - Thanks @dqsully for the original [October CMS Template language](https://github.com/dqsully/octobercms-template-language) package.
 - Thanks @Anomareh for the [PHP-Twig TextMate bundle](https://github.com/Anomareh/PHP-Twig.tmbundle) used to source the Twig functions.
+
+## License
+
+This code is licensed with a [Creative Commons Attribution-NoDerivatives 4.0 International Public License](../LICENSE.md) which means you may use it freely and submit pull requests, but you may not fork it to create a new product without written permission. We are happy to give permission to developers that ask nicely.
