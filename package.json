@@ -3,8 +3,8 @@
     "displayName": "October Twig",
     "description": "Language support for October CMS template file (.htm) syntax.",
     "repository": "https://github.com/daftspunk/october-twig",
-    "version": "1.1.1",
-    "icon": "icon.png",
+    "version": "1.1.2",
+    "icon": "vscode/icon.png",
     "publisher": "daftspunk",
     "engines": {
         "vscode": "^1.12.0"
@@ -15,16 +15,16 @@
             "id": "october-htm",
             "aliases": ["October CMS Template", "octobercms"],
             "extensions": [".htm"],
-            "configuration": "./vscode-lang-config.json"
+            "configuration": "./vscode/lang-config.json"
         }, {
             "id": "october-twig",
             "aliases": ["October CMS Vanilla Twig Syntax"],
-            "configuration": "./vscode-twig-lang-config.json"
+            "configuration": "./vscode/lang-config-twig.json"
         }],
         "grammars": [{
             "language": "october-htm",
             "scopeName": "text.html.octobercms",
-            "path": "./october-htm.tmLanguage.json",
+            "path": "./vscode/october-htm.tmLanguage.json",
             "embeddedLanguages": {
                 "source.ini": "ini",
                 "source.php": "php",
@@ -33,7 +33,7 @@
         }, {
             "language": "october-twig",
             "scopeName": "text.html.twig.octobercms",
-            "path": "./october-twig.tmLanguage"
+            "path": "./vscode/october-twig.tmLanguage"
         }]
     }
 }
