@@ -1,6 +1,6 @@
 # October CMS Twig Highlighter
 
-This package adds syntax definitions for the [October CMS](https://docs.octobercms.com/2.x/markup/templating.html) Twig engine. Support is available for [Sublime Text](https://www.sublimetext.com/) and [Visual Studio Code](https://code.visualstudio.com/).
+This package adds syntax definitions for the [October CMS](https://docs.octobercms.com/2.x/markup/templating.html) Twig engine. Support is available for [Sublime Text](https://www.sublimetext.com/), [Visual Studio Code](https://code.visualstudio.com/) and all [JetBrains IntelliJ IDEs](https://www.jetbrains.com/).
 
 ## Visual Studio Code
 
@@ -26,6 +26,7 @@ function onStart() { /* ...*/ }
     {{ post.content}}
 {% endfor %}
 ```
+
 
 #### How to Contribute
 
@@ -58,6 +59,19 @@ Restart Sublime Text after you install this package.
 - Open up the `october-twig.sublime-syntax` file and make changes.
 - Provided is a `test.htm` file that holds most of the common uses for testing the regex, use this to verify your changes before and after you make them to ensure the changes you make do not break anything.
 - Send a pull request with a single change per request.
+
+## JetBrains IntelliJ
+
+### How to install with IntelliJ
+
+- Make sure the **TextMate Bundles** plugin is installed and enabled.
+- Clone this repo into a local directory (`/path/to/october-twig`).
+- In IntelliJ's settings, navigate to `Editor` -> `TextMate Bundles`.
+- Click `+` and select the local clone of this repo (`/path/to/october-twig`).
+- In IntellJ's settings, navigate to `Editor` -> `File Types`.
+- Select `Files supported via TextMate bundles`.
+- Under `File name patterns` add `*.htm`.
+- Apply the new settings to get October Twig highlighting in any file that has a `*.htm` extension.
 
 ## Thanks
 
