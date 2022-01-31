@@ -27,6 +27,13 @@ function onStart() { /* ...*/ }
 {% endfor %}
 ```
 
+#### How to Contribute
+
+- Intall this extension
+- Open the `%USERPROFILE%\.vscode\extensions` directory
+- Modify the extension files
+- Reload the window to test
+
 ## Sublime Text
 
 Uses `.sublime-syntax` files that works with Sublime Text 3 and newer.
