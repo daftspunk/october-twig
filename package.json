@@ -1,7 +1,7 @@
 {
     "name": "october-twig",
-    "displayName": "October CMS Template Language",
-    "description": "Language support for October's CMS template file syntax.",
+    "displayName": "October Twig",
+    "description": "Language support for October CMS template file (.htm) syntax.",
     "repository": "https://github.com/daftspunk/october-twig",
     "version": "1.1.1",
     "icon": "icon.png",

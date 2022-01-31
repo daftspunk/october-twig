@@ -6,17 +6,19 @@ This package adds syntax definitions for the [October CMS](https://docs.octoberc
 
 ### How to install with VS Code
 
-Search for **October Twig** and install it, that simple.
+Search for **October Twig** and install the package. You can then select "October CMS Template" from the available syntax list.
 
-Due to the limitations of the VS Code grammar system, `{##}` must be at the beginning of the twig section in your theme template file. For example:
+If you would like the INI syntax to be enabled, `##` must be at the beginning of the template file. For example:
 
 ```
+##
 url = "/blog"
 layout = "default"
 ==
+<?
 function onStart() { /* ...*/ }
+?>
 ==
-{##}
 <h1>Page Title</h1>
 
 {% for post in posts %}
@@ -52,4 +54,5 @@ Restart Sublime Text after you install this package.
 
 ## Thanks
 
+- Thanks @dqsully for the original [October CMS Template language](https://github.com/dqsully/octobercms-template-language) package.
 - Thanks @Anomareh for the [PHP-Twig TextMate bundle](https://github.com/Anomareh/PHP-Twig.tmbundle) used to source the Twig functions.

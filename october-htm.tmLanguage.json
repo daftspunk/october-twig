@@ -2,16 +2,32 @@
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "scopeName": "text.html.octobercms",
     "name": "October CMS Template",
-    "firstLineMatch": "^;;\\s*$",
     "patterns": [
         {
-            "contentName": "text.html.twig.octobercms",
-            "begin": "\\{#\\s*#\\}$",
+            "contentName": "text.html.php",
+            "begin": "<\\?(?i:php|=)?(?![^?]*\\?>)",
             "beginCaptures": {
                 "0": {
-                    "name": "comment.line.begin.octobercms.twig"
+                    "name": "punctuation.section.embedded.begin.php"
                 }
             },
+            "end": "(\\?)>",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.embedded.end.php"
+                },
+                "1": {
+                    "name": "source.php"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.php"
+                }
+            ]
+        },
+        {
+            "contentName": "text.html.twig.octobercms",
             "patterns": [
                 {
                     "patterns": [
@@ -24,45 +40,9 @@
             ]
         },
         {
-            "contentName": "text.html.php",
-            "begin": "==\\s*$",
-            "end": "(^==\\s*$)|^(?=\\{#\\s*#\\}$)",
-            "patterns": [
-                {
-                    "begin": "<\\?(php)?(?:\\s|$)",
-                    "end": "\\?>|^(?===\\s*$)|^(?=\\{#\\s*#\\}$)",
-                    "beginCaptures": {
-                        "0": {
-                            "name": "punctuation.section.embedded.begin.php"
-                        }
-                    },
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.section.embedded.begin.php"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "source.php"
-                        }
-                    ],
-                    "contentName": "source.php"
-                },
-                {
-                    "begin": "(?!<\\?(php)?($|\\s))(?=\\S)",
-                    "end": "^(?===\\s*$)|^(?=\\{#\\s*#\\}$)",
-                    "patterns": [
-                        {
-                            "include": "source.php"
-                        }
-                    ],
-                    "contentName": "source.php"
-                }
-            ]
-        },
-        {
             "contentName": "source.ini.octobercms",
-            "begin": "^(?=.|\\n)",
+            "begin": "^(?=##\\s*)",
+            "end": "==\\s*$",
             "patterns": [
                 {
                     "patterns": [
@@ -72,8 +52,7 @@
                     ],
                     "name": "meta.embedded.ini"
                 }
-            ],
-            "end": "^(?===\\s*$)"
+            ]
         }
     ]
 }
