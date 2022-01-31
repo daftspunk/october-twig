@@ -8,6 +8,23 @@ This package adds syntax definitions for the [October CMS](https://docs.octoberc
 
 Search for **October Twig** and install it, that simple.
 
+Due to the limitations of the VS Code grammar system, `{##}` must be at the beginning of the twig section in your theme template file. For example:
+
+```
+url = "/blog"
+layout = "default"
+==
+function onStart() { /* ...*/ }
+==
+{##}
+<h1>Page Title</h1>
+
+{% for post in posts %}
+    <h4>{{ post.title }}</h4>
+    {{ post.content}}
+{% endfor %}
+```
+
 ## Sublime Text
 
 Uses `.sublime-syntax` files that works with Sublime Text 3 and newer.
