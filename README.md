@@ -1,14 +1,22 @@
-## October Twig Highlighter
+# October CMS Twig Highlighter
 
-This package adds syntax definitions for the [OctoberCMS](http://octobercms.com/docs/markup) Twig engine.
+This package adds syntax definitions for the [October CMS](https://docs.octobercms.com/2.x/markup/templating.html) Twig engine. Support is available for [Sublime Text](https://www.sublimetext.com/) and [Visual Studio Code](https://code.visualstudio.com/).
 
-*Uses .sublime-syntax files that works with Sublime Text 3 and newer.*
+## Visual Studio Code
+
+### How to install with VS Code
+
+Search for **October Twig** and install it, that simple.
+
+## Sublime Text
+
+Uses `.sublime-syntax` files that works with Sublime Text 3 and newer.
 
 ### How to install with [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
 
-Search for October Twig and install it, it's just that simple.
+Search for **October Twig** and install it, it's just that simple.
 
-*Restart Sublime Text after you install this package.*
+Restart Sublime Text after you install this package.
 
 ### Sublime Text Manual Install
 
@@ -25,6 +33,6 @@ Search for October Twig and install it, it's just that simple.
 - Provided is a `test.htm` file that holds most of the common uses for testing the regex, use this to verify your changes before and after you make them to ensure the changes you make do not break anything.
 - Send a pull request with a single change per request.
 
-#### Thanks
+## Thanks
 
 - Thanks @Anomareh for the [PHP-Twig TextMate bundle](https://github.com/Anomareh/PHP-Twig.tmbundle) used to source the Twig functions.
