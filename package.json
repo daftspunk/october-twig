@@ -3,7 +3,7 @@
     "displayName": "October Twig",
     "description": "Language support for October CMS template file (.htm) syntax.",
     "repository": "https://github.com/daftspunk/october-twig",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "icon": "vscode/icon.png",
     "publisher": "daftspunk",
     "engines": {
