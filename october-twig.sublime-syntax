@@ -100,29 +100,20 @@ contexts:
         #
         # PHP
         #
-        - match: '<\?(?i:php|=)?(?![^?]*\?>)'
+        - match: <\?(?i:php|=)?(?![^?]*\?>)
           scope: punctuation.section.embedded.begin.php
           push:
+            - meta_scope: meta.embedded.block.php
             - meta_content_scope: source.php
-            - meta_scope: meta.embedded.block.october.php
-            - include: 'scope:source.php'
-          with_prototype:
-            - match: (?=\?>)(\?>)
-              captures:
-                0: punctuation.section.embedded.end.php
-              pop: true
-
-        - match: '<\?(?i:php|=)?'
+            - include: php-end-tag-pop
+            - include: scope:source.php
+        - match: <\?(?i:php|=)?
           scope: punctuation.section.embedded.begin.php
           push:
-            - meta_content_scope: source.php.october
-            - meta_scope: meta.embedded.line.october.php
-            - include: 'scope:source.php'
-          with_prototype:
-          - match: (?=\?>)(\?>)
-            captures:
-              0: punctuation.section.embedded.end.php
-            pop: true
+            - meta_scope: meta.embedded.line.php
+            - meta_content_scope: source.php
+            - include: php-end-tag-pop
+            - include: scope:source.php
 
   #
   # Twig includes
@@ -418,6 +409,12 @@ contexts:
           captures:
             0: punctuation.definition.string.end.twig
           pop: true
+ php-end-tag-pop:
+  - match: (\?>)(\s*\n)?
+    captures:
+      1: punctuation.section.embedded.end.php
+      2: meta.html-newline-after-php.php
+    pop: 1
 
 #
 # INI (Not used)
