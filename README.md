@@ -2,12 +2,6 @@
 
 This package adds syntax definitions for the [October CMS](https://docs.octobercms.com/2.x/markup/templating.html) Twig engine. Support is available for [Sublime Text](https://www.sublimetext.com/), [Visual Studio Code](https://code.visualstudio.com/) and all [JetBrains IntelliJ IDEs](https://www.jetbrains.com/).
 
-## Visual Studio Code
-
-### How to install with VS Code
-
-Search for **October Twig** and install the package. You can then select "October CMS Template" from the available syntax list.
-
 If you would like the INI syntax to be enabled, `##` must be at the beginning of the template file. For example:
 
 ```
@@ -26,6 +20,12 @@ function onStart() { /* ...*/ }
     {{ post.content}}
 {% endfor %}
 ```
+
+## Visual Studio Code
+
+### How to install with VS Code
+
+Search for **October Twig** and install the package. You can then select "October CMS Template" from the available syntax list.
 
 #### How to Contribute
 
@@ -92,4 +92,4 @@ Restart Sublime Text after you install this package.
 
 ## License
 
-This code is licensed with a [Creative Commons Attribution-NoDerivatives 4.0 International Public License](../LICENSE.md) which means you may use it freely and submit pull requests, but you may not fork it to create a new product without written permission. We are happy to give permission to developers that ask nicely.
+This code is licensed with a [Creative Commons Attribution-NoDerivatives 4.0 International Public License](../LICENSE.md) which means you may use it freely and submit pull requests, but you may not fork it to create a new product without written permission from the copyright holder.
