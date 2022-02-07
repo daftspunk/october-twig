@@ -21,13 +21,62 @@ contexts:
   # Main parser
   #
   main:
-
     - match: ''
       push:
         - include: scope:text.html.basic
         - meta_scope: text.html.october
           pop: true
       with_prototype:
+        #
+        # INI
+        #
+        - match: ^(?=##\s*)
+          push:
+            - meta_scope: meta.tag.template.value.ini
+            - match: ==\s*$
+              scope: meta.tag.template.value.ini
+              pop: 1
+            - match: ^\s*(;|#).*$\n?
+              scope: comment.line.semicolon.ini
+              captures:
+                1: punctuation.definition.comment.ini
+            - match: '^\s*(\[)(.*?)(\])'
+              scope: meta.tag.section.ini
+              captures:
+                1: punctuation.definition.section.ini
+                2: entity.section.ini
+                3: punctuation.definition.section.ini
+            - match: '^(\s*(["'']?)(.+?)(\2)\s*(=))?\s*((["'']?)(.*?)(\7))\s*(;.*)?$\n?'
+              scope: meta.declaration.ini
+              captures:
+                1: meta.property.ini
+                2: punctuation.definition.quote.ini
+                3: keyword.name.ini
+                4: punctuation.definition.quote.ini
+                5: punctuation.definition.equals.ini
+                6: meta.value.ini
+                7: punctuation.definition.quote.ini
+                8: string.name.value.ini
+                9: punctuation.definition.quote.ini
+                10: comment.declarationline.semicolon.ini
+
+        #
+        # PHP
+        #
+        - match: <\?(?i:php|=)?(?![^?]*\?>)
+          scope: punctuation.section.embedded.begin.php
+          push:
+            - meta_scope: meta.embedded.block.php
+            - meta_content_scope: source.php
+            - include: php-end-tag-pop
+            - include: scope:source.php
+        - match: <\?(?i:php|=)?
+          scope: punctuation.section.embedded.begin.php
+          push:
+            - meta_scope: meta.embedded.line.php
+            - meta_content_scope: source.php
+            - include: php-end-tag-pop
+            - include: scope:source.php
 
         #
         # Twig Print Tag
@@ -96,24 +145,6 @@ contexts:
               captures:
                 0: punctuation.definition.comment.end.twig
               pop: true
-
-        #
-        # PHP
-        #
-        - match: <\?(?i:php|=)?(?![^?]*\?>)
-          scope: punctuation.section.embedded.begin.php
-          push:
-            - meta_scope: meta.embedded.block.php
-            - meta_content_scope: source.php
-            - include: php-end-tag-pop
-            - include: scope:source.php
-        - match: <\?(?i:php|=)?
-          scope: punctuation.section.embedded.begin.php
-          push:
-            - meta_scope: meta.embedded.line.php
-            - meta_content_scope: source.php
-            - include: php-end-tag-pop
-            - include: scope:source.php
 
   #
   # Twig includes
@@ -409,36 +440,10 @@ contexts:
           captures:
             0: punctuation.definition.string.end.twig
           pop: true
- php-end-tag-pop:
-  - match: (\?>)(\s*\n)?
-    captures:
-      1: punctuation.section.embedded.end.php
-      2: meta.html-newline-after-php.php
-    pop: 1
 
-#
-# INI (Not used)
-#
-# - match: ^\s*(;|#).*$\n?
-#   scope: comment.line.semicolon.ini
-#   captures:
-#     1: punctuation.definition.comment.ini
-# - match: '^\s*(\[)(.*?)(\])'
-#   scope: meta.tag.section.ini
-#   captures:
-#     1: punctuation.definition.section.ini
-#     2: entity.section.ini
-#     3: punctuation.definition.section.ini
-# - match: '^(\s*(["'']?)(.+?)(\2)\s*(=))?\s*((["'']?)(.*?)(\7))\s*(;.*)?$\n?'
-#   scope: meta.declaration.ini
-#   captures:
-#     1: meta.property.ini
-#     2: punctuation.definition.quote.ini
-#     3: keyword.name.ini
-#     4: punctuation.definition.quote.ini
-#     5: punctuation.definition.equals.ini
-#     6: meta.value.ini
-#     7: punctuation.definition.quote.ini
-#     8: string.name.value.ini
-#     9: punctuation.definition.quote.ini
-#     10: comment.declarationline.semicolon.ini
+  php-end-tag-pop:
+    - match: (\?>)(\s*\n)?
+      captures:
+        1: punctuation.section.embedded.end.php
+        2: meta.html-newline-after-php.php
+      pop: 1
