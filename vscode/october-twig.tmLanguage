@@ -1378,7 +1378,7 @@
         <key>twig-keywords</key>
         <dict>
             <key>match</key>
-            <string>(?&lt;=\s)((?:end)?(?:autoescape|block|embed|filter|for|if|macro|raw|sandbox|set|spaceless|trans|verbatim)|as|do|else|elseif|extends|flush|from|ignore missing|import|include|only|use|with|page|framework|partial|content|component|scripts|styles)(?=\s)</string>
+            <string>(?&lt;=\s)((?:end)?(?:autoescape|block|embed|filter|for|if|macro|raw|sandbox|set|spaceless|trans|verbatim)|as|do|else|elseif|extends|flush|from|ignore missing|import|include|only|use|with|page|framework|partial|content|component|scripts|styles|put)(?=\s)</string>
             <key>name</key>
             <string>keyword.control.twig</string>
         </dict>
@@ -1387,7 +1387,7 @@
         <key>twig-functions-warg</key>
         <dict>
             <key>begin</key>
-            <string>(?&lt;=[\s\(\[\{:,])(attribute|block|constant|cycle|date|divisible by|dump|include|max|min|parent|random|range|same as|source|template_from_string|input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset)(\()</string>
+            <string>(?&lt;=[\s\(\[\{:,])(attribute|block|constant|cycle|date|divisible by|dump|include|max|min|parent|random|range|same as|source|template_from_string|input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset|placeholder|abort)(\()</string>
             <key>beginCaptures</key>
             <dict>
                 <key>1</key>

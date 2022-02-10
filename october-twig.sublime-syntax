@@ -13,7 +13,7 @@ variables:
   filters: app|page|media|theme|slug|plural|singular|finish|snake|camel|studly|trans|transchoice|md|time_since|time_tense|_|__
   filtersArgs: page|transchoice|_|__
   functions: input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset
-  functionsArgs: input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset
+  functionsArgs: input|post|get|link_to|link_to_asset|link_to_route|link_to_action|asset|action|url|route|secure_url|secure_asset|placeholder|abort
 
 contexts:
 
