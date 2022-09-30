@@ -1,3 +1,9 @@
+# October Twig is no longer under active development
+
+Please note that the October Twig extension is no longer under active development. It has been superseded by a new VSCode package called [October Code](https://github.com/SergeyKasyanov/vscode-october-extension), which offers robust support for October CMS applications.
+
+- [Take me to October Code](https://marketplace.visualstudio.com/items?itemName=SergeyKasyanov.october-code)
+
 # October CMS Twig Highlighter
 
 This package adds syntax definitions for the [October CMS](https://docs.octobercms.com/2.x/markup/templating.html) Twig engine. Support is available for [Sublime Text](https://www.sublimetext.com/), [Visual Studio Code](https://code.visualstudio.com/) and all [JetBrains IntelliJ IDEs](https://www.jetbrains.com/).
